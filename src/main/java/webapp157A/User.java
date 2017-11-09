@@ -31,4 +31,8 @@ public class User {
         this.password = password;
     }
 
+    public void setDateJoined(Date dateJoined) {
+        this.dateJoined = dateJoined;
+    }
+
 }
