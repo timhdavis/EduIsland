@@ -20,14 +20,11 @@ public class RegistrationController {
         ModelAndView mav = new ModelAndView("register");
         mav.addObject("userForm", new User());
 
-
         return mav;
-
         }
 
     @RequestMapping(value = "/registerProcess", method = RequestMethod.POST)
     public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("userForm") User user) {
-
         userDAO.register(user);
         return new ModelAndView("welcome", "userId", user.getUserId());
     }
