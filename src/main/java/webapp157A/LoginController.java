@@ -18,7 +18,7 @@ public class LoginController {
     UserDAO userDAO;
 
     @RequestMapping(value ="/login", method = RequestMethod.GET)
-        public ModelAndView getLoginForm(HttpServletRequest request, HttpServletResponse response){
+        public ModelAndView getLoginForm(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("loginForm", new User());
 
