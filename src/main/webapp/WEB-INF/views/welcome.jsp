@@ -1,3 +1,4 @@
+<%--This is the page the user sees once they log into their account.--%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -7,7 +8,7 @@
 <body>
 <table>
     <tr>
-        <td>Welcome ${userId}</td>
+        <td>Welcome ${user.userContactInfo.firstName} ${user.userContactInfo.lastName} / ID: ${user.userId} </td>
     </tr>
     <tr>
     </tr>

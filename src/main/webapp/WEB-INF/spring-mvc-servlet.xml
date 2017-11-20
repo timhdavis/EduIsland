@@ -9,14 +9,20 @@
 
     <bean id="User" class="webapp157A.User" />
     <bean id="UserDAO" class="webapp157A.UserDAO" />
+    <bean id="ContactInfo" class="webapp157A.ContactInfo" />
+    <bean id="ContactInfoDAO" class="webapp157A.ContactInfoDAO" />
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="datasource" />
     </bean>
 
     <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://mysql157a.cbdabtpne9q4.us-west-2.rds.amazonaws.com:3306/Dev" />
-        <property name="username" value="sharan67" />
-        <property name="password" value="actions67" />
+        <!--<property name="url" value="jdbc:mysql://mysql157a.cbdabtpne9q4.us-west-2.rds.amazonaws.com:3306/Dev" />-->
+
+        <property name="url" value="jdbc:mysql://localhost:3306/eduControl" />
+        <!--<property name="username" value="sharan67" />-->
+        <!--<property name="password" value="actions67" />-->
+        <property name="username" value="root" />
+        <property name="password" value="root" />
     </bean>
 </beans>

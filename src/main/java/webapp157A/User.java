@@ -4,12 +4,16 @@ import com.mysql.jdbc.TimeUtil;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
     private String userId;
     private String password;
     private Date dateJoined = new Timestamp(System.currentTimeMillis());
+
+    private ContactInfo userContactInfo;
+    private List<ContactInfo> emergencyContacts;
 
     public String getUserId() {
         return userId;
@@ -23,6 +27,10 @@ public class User {
         return dateJoined;
     }
 
+    public ContactInfo getUserContactInfo() { return userContactInfo; }
+
+    public List<ContactInfo> getEmergencyContacts() { return emergencyContacts; }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -34,5 +42,7 @@ public class User {
     public void setDateJoined(Date dateJoined) {
         this.dateJoined = dateJoined;
     }
+
+    public void setUserContactInfo(ContactInfo contactInfo) { this.userContactInfo = contactInfo; }
 
 }

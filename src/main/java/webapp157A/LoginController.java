@@ -17,6 +17,9 @@ public class LoginController {
     @Autowired
     UserDAO userDAO;
 
+    @Autowired
+    ContactInfoDAO contactInfoDAO;
+
     @RequestMapping(value ="/login", method = RequestMethod.GET)
         public ModelAndView getLoginForm(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("login");
@@ -28,10 +31,14 @@ public class LoginController {
     @RequestMapping(value="/loginProcess", method = RequestMethod.POST)
         public ModelAndView login(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("loginForm") User user) {
         ModelAndView mav = null;
+
         User validUser = userDAO.validateUser(user);
 
+        ContactInfo validContactInfo = contactInfoDAO.getUserContactInfo(validUser.getUserId());
+        validUser.setUserContactInfo(validContactInfo);
+
         if(validUser != null) {
-            mav = new ModelAndView("welcome", "userId", validUser.getUserId());
+            mav = new ModelAndView("welcome", "user", validUser);//mav = new ModelAndView("welcome", "userId", validUser.getUserId());
         } else {
             mav = new ModelAndView("login");
             mav.addObject("Error", "Incorrect UserName or Password");
