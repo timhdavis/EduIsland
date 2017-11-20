@@ -26,7 +26,7 @@ public class RegistrationController {
     @RequestMapping(value = "/registerProcess", method = RequestMethod.POST)
     public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("userForm") User user) {
         userDAO.register(user);
-        return new ModelAndView("welcome", "userId", user.getUserId());
+        return new ModelAndView("welcome", "user", user);
     }
 
 

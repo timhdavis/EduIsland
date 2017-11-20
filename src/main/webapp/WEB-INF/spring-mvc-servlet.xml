@@ -9,8 +9,13 @@
 
     <bean id="User" class="webapp157A.User" />
     <bean id="UserDAO" class="webapp157A.UserDAO" />
+
     <bean id="ContactInfo" class="webapp157A.ContactInfo" />
     <bean id="ContactInfoDAO" class="webapp157A.ContactInfoDAO" />
+
+    <bean id="StudentInfo" class="webapp157A.StudentInfo" />
+    <bean id="StudentDAO" class="webapp157A.StudentDAO" />
+
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="datasource" />
     </bean>

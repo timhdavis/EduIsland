@@ -22,6 +22,20 @@ public class ContactInfoDAO {
 
     public static final String GET_USER_CONTACT_INFO = "select * from ContactInfo ci where ci.contact_id = (select contact_id from HasContactInfo where user_id = ?);";
 
+    public static final String CONNECT_USER_AND_CONTACT_INFO = "insert into HasContactInfo values(?, ?)";
+
+    public void addContactInfoToUser(String userId, ContactInfo contactInfo) {
+
+        contactInfo.setContactId(generateUserContactId(userId));
+
+        jdbcTemplate.update(CONNECT_USER_AND_CONTACT_INFO, new Object[] {userId, contactInfo.getContactId()});
+
+        jdbcTemplate.update(ADD_CONTACT_INFO, new Object[] {contactInfo.getContactId(),
+                contactInfo.getFirstName(), contactInfo.getMiddleName(), contactInfo.getLastName(),
+                contactInfo.getPhoneNumber(), contactInfo.getEmailAddress(), contactInfo.getEmailAddress2(),
+                contactInfo.getStreet(), contactInfo.getCity(), contactInfo.getState(), contactInfo.getZipCode()});
+    }
+
     public void addContactInfo(ContactInfo contactInfo) {
         jdbcTemplate.update(ADD_CONTACT_INFO, new Object[] {contactInfo.getContactId(),
                 contactInfo.getFirstName(), contactInfo.getMiddleName(), contactInfo.getLastName(),
@@ -68,5 +82,12 @@ public class ContactInfoDAO {
 
             return contactInfo;
         }
+    }
+
+    // Private methods:
+
+    private String generateUserContactId(String userId)
+    {
+        return userId + "-c";
     }
 }

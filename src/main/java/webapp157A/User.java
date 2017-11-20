@@ -15,6 +15,11 @@ public class User {
     private ContactInfo userContactInfo;
     private List<ContactInfo> emergencyContacts;
 
+    private StudentInfo studentInfo;
+
+
+    // Getters:
+
     public String getUserId() {
         return userId;
     }
@@ -31,6 +36,10 @@ public class User {
 
     public List<ContactInfo> getEmergencyContacts() { return emergencyContacts; }
 
+    public StudentInfo getStudentInfo() { return studentInfo; }
+
+    // Setters:
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -45,4 +54,12 @@ public class User {
 
     public void setUserContactInfo(ContactInfo contactInfo) { this.userContactInfo = contactInfo; }
 
+    public void setStudentInfo(StudentInfo studentInfo) { this.studentInfo = studentInfo; }
+
+    // Other:
+
+    public boolean isStudent()
+    {
+        return (studentInfo != null);
+    }
 }
