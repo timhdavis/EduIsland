@@ -24,16 +24,24 @@ public class ContactInfoDAO {
 
     public static final String CONNECT_USER_AND_CONTACT_INFO = "insert into HasContactInfo values(?, ?)";
 
+    public static final String UPDATE_CONTACT_INFO = "update ContactInfo set first_name=?, middle_name=?, last_name=?, " +
+                                                        "phone_number=?, email_address=?, email_address_2=?, " +
+                                                            "street=?, city=?, state=?, zip_code=? where contact_id=?;";
+
+
     public void addContactInfoToUser(String userId, ContactInfo contactInfo) {
 
+        // Get a unique contact id:
         contactInfo.setContactId(generateUserContactId(userId));
 
-        jdbcTemplate.update(CONNECT_USER_AND_CONTACT_INFO, new Object[] {userId, contactInfo.getContactId()});
-
+        // Create a record in the contact table:
         jdbcTemplate.update(ADD_CONTACT_INFO, new Object[] {contactInfo.getContactId(),
                 contactInfo.getFirstName(), contactInfo.getMiddleName(), contactInfo.getLastName(),
                 contactInfo.getPhoneNumber(), contactInfo.getEmailAddress(), contactInfo.getEmailAddress2(),
                 contactInfo.getStreet(), contactInfo.getCity(), contactInfo.getState(), contactInfo.getZipCode()});
+
+        // Connect the contact record and the user record:
+        jdbcTemplate.update(CONNECT_USER_AND_CONTACT_INFO, new Object[] {userId, contactInfo.getContactId()});
     }
 
     public void addContactInfo(ContactInfo contactInfo) {
@@ -42,6 +50,16 @@ public class ContactInfoDAO {
                 contactInfo.getPhoneNumber(), contactInfo.getEmailAddress(), contactInfo.getEmailAddress2(),
                 contactInfo.getStreet(), contactInfo.getCity(), contactInfo.getState(), contactInfo.getZipCode()});
     }
+
+
+    public void updateContactInfo(ContactInfo contactInfo) {
+        jdbcTemplate.update(UPDATE_CONTACT_INFO, new Object[] {contactInfo.getFirstName(),
+                contactInfo.getMiddleName(), contactInfo.getLastName(),
+                contactInfo.getPhoneNumber(), contactInfo.getEmailAddress(), contactInfo.getEmailAddress2(),
+                contactInfo.getStreet(), contactInfo.getCity(), contactInfo.getState(), contactInfo.getZipCode(),
+                contactInfo.getContactId()});
+    }
+
 
     public ContactInfo getContactInfo(ContactInfo contactInfo) {
         List<ContactInfo> contacts = jdbcTemplate.query(GET_CONTACT_INFO, new Object[]{contactInfo.getContactId()}, new ContactInfoMapper());
@@ -55,11 +73,13 @@ public class ContactInfoDAO {
         return contacts.size() > 0 ? contacts.get(0) : null; // this checks if users size > greater than 0, then return the first contactInfo else return null
     }
 
+
     public ContactInfo getUserContactInfo(String userId) {
         List<ContactInfo> contacts = jdbcTemplate.query(GET_USER_CONTACT_INFO, new Object[]{userId}, new ContactInfoMapper());
 
         return contacts.size() > 0 ? contacts.get(0) : null; // this checks if users size > greater than 0, then return the first contactInfo else return null
     }
+
 
     public class ContactInfoMapper implements RowMapper {
         public ContactInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -88,6 +108,7 @@ public class ContactInfoDAO {
 
     private String generateUserContactId(String userId)
     {
+        // TODO: there may be a better approach to doing this:
         return userId + "-c";
     }
 }

@@ -55,30 +55,36 @@ public class LoginController {
 
     //---- TODO: move to UserController:
 
-    @RequestMapping(value ="/editContactInfo", method = RequestMethod.GET) // TODO: FIX
+    @RequestMapping(value ="/editContactInfo", method = RequestMethod.GET)
     public ModelAndView editContactInfo(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("editContactInfo"); // name of the JSP file referencing.
         mav.addObject("editContactInfoForm", new ContactInfo()); // attributeName from JSP form's modelAttribute field.
+        mav.addObject("user", currentUser);
 
         return mav;
     }
 
     @RequestMapping(value="/updateContactInfoProcess", method = RequestMethod.POST)
     public ModelAndView updateContactInfo(HttpServletRequest request, HttpServletResponse response,
-                                          @ModelAttribute("editContactInfoForm") ContactInfo contactInfo) {
+                                          @ModelAttribute("editContactInfoForm") ContactInfo contactInfoEntered) {
         ModelAndView mav = null;
 
-        if (currentUser != null)
-        {
-            contactInfoDAO.addContactInfoToUser(currentUser.getUserId(), contactInfo);//TODO: Note this may cause errors - it Adds new record instead of Updating...
+        if (currentUser != null) {
+            if (currentUser.getUserContactInfo() == null) { // if no contact info entered yet:
+                contactInfoDAO.addContactInfoToUser(currentUser.getUserId(), contactInfoEntered);
+            }
+            else { // update contact info:
+                currentUser.getUserContactInfo().update(contactInfoEntered);
+                contactInfoDAO.updateContactInfo(currentUser.getUserContactInfo());
+            }
 
-            currentUser.setUserContactInfo(contactInfoDAO.getUserContactInfo(currentUser.getUserId())); //TODO: this may be dangerous...
+            currentUser.setUserContactInfo(contactInfoDAO.getUserContactInfo(currentUser.getUserId()));
 
             mav = new ModelAndView("welcome", "user", currentUser);
         }
         else {
             mav = new ModelAndView("login");
-            mav.addObject("Error", "Incorrect UserName or Password");
+            mav.addObject("Error", "No current user.");
         }
 
         return mav;
@@ -92,7 +98,7 @@ public class LoginController {
         validUser.setUserContactInfo(validContactInfo);
     }
 
-    // adds student info if any exists (null if not a student):
+    // adds student info if any exists in database for this user (null if not a student):
     private void setUserStudentInfo(User validUser)
     {
         StudentInfo validStudentInfo = studentDAO.getStudentInfo(validUser.getUserId());

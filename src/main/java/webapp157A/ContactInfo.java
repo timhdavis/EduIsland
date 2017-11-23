@@ -24,8 +24,8 @@ public class ContactInfo {
 
     // Getters and setters:
 
-    public void setContactId(String contactId) { this.contactId = contactId; }
     public String getContactId() { return contactId; }
+    public void setContactId(String contactId) { this.contactId = contactId; }
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
@@ -56,4 +56,39 @@ public class ContactInfo {
 
     public String getZipCode() { return zipCode; }
     public void setZipCode(String zipCode) { this.zipCode = zipCode; }
+
+    // Other methods:
+
+    /*
+        Replaces fields (except for userId) of this contact with fields in newContactInfo if
+         the new fields are not empty strings.
+     */
+    public void update(ContactInfo newContactInfo)
+    {
+        // Note: "" is tested first to eliminate NullPointer errors where the new field is null:
+        if (!"".equals(newContactInfo.firstName)) { setFirstName(newContactInfo.getFirstName()); }
+        if (!"".equals(newContactInfo.middleName)) { setMiddleName(newContactInfo.getMiddleName()); }
+        if (!"".equals(newContactInfo.lastName)) { setLastName(newContactInfo.getLastName()); }
+
+        if (!"".equals(newContactInfo.phoneNumber)) { setPhoneNumber(newContactInfo.getPhoneNumber()); }
+        if (!"".equals(newContactInfo.emailAddress)) { setEmailAddress(newContactInfo.getEmailAddress()); }
+        if (!"".equals(newContactInfo.emailAddress2)) { setEmailAddress2(newContactInfo.getEmailAddress2()); }
+
+        if (!"".equals(newContactInfo.street)) { setStreet(newContactInfo.getStreet()); }
+        if (!"".equals(newContactInfo.city)) { setCity(newContactInfo.getCity()); }
+        if (!"".equals(newContactInfo.state)) { setState(newContactInfo.getState()); }
+        if (!"".equals(newContactInfo.zipCode)) { setZipCode(newContactInfo.getZipCode()); }
+    }
+
+    // General methods:
+
+    @Override
+    public String toString()
+    {
+        return "<contact> contact ID: " + this.contactId
+                + " / first name: " + this.firstName + " / middle name: " + this.middleName + " / last name: " + this.lastName
+                + " / phone: " + this.phoneNumber + " / email: " + this.emailAddress + " / email 2: " + this.emailAddress2
+                + " / street: " + this.street + " / city: " + this.city + " / state: " + this.state + " / zip: " + this.zipCode
+                + "</contact>";
+    }
 }

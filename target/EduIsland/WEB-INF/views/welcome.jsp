@@ -11,7 +11,7 @@
         <td>Welcome ${user.userContactInfo.firstName} ${user.userContactInfo.lastName}</td>
     </tr>
     <tr>
-        <td>User ID: ${user.userId}</td>
+        <td>User ID: ${user.userId} </td>
     </tr>
     <tr>
         <td>Is Student: ${user.student}</td>
