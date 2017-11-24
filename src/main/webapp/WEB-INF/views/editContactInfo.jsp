@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>Login</head>
+<head>Edit Contact Info</head>
 <Body>
 
 

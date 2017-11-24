@@ -1,6 +1,13 @@
-webapp157A/UserDAO.class
-webapp157A/User.class
+webapp157A/ContactInfoDAO.class
+webapp157A/ContactInfoDAO$ContactInfoMapper.class
 webapp157A/Course.class
 webapp157A/RegistrationController.class
+webapp157A/UserController.class
+webapp157A/User.class
 webapp157A/UserDAO$UserMapper.class
 webapp157A/LoginController.class
+webapp157A/UserDAO.class
+webapp157A/StudentDAO.class
+webapp157A/StudentDAO$StudentMapper.class
+webapp157A/ContactInfo.class
+webapp157A/StudentInfo.class

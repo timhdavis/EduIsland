@@ -55,6 +55,13 @@ public class LoginController {
 
     //---- TODO: move to UserController:
 
+    @RequestMapping(value ="/showContactInfo", method = RequestMethod.GET)
+    public ModelAndView showContactInfo(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("showContactInfo", "user", currentUser);
+
+        return mav;
+    }
+
     @RequestMapping(value ="/editContactInfo", method = RequestMethod.GET)
     public ModelAndView editContactInfo(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("editContactInfo"); // name of the JSP file referencing.
