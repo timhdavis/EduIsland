@@ -14,13 +14,45 @@
     <tr>
         <td>User ID: ${user.userId} </td>
     </tr>
-    <tr>
-        <td>
-            <c:if test="${user.student}">
+    <%--  Student / Instructo / Admin Info:  --%>
+    <%--  Student Info:  --%>
+    <c:if test="${user.student}">
+        <tr>
+            <td>
                 Student Status: ${user.studentInfo.enrollmentStatus}
-            </c:if>
-        </td>
-    </tr>
+            </td>
+        </tr>
+    </c:if>
+    <%--  Instructor Info:  --%>
+    <c:if test="${user.instructor}">
+        <tr>
+            <td>
+                <p>Instructor Info:</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Position: ${user.instructorInfo.position}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Bio: ${user.instructorInfo.biography}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Photo: ${user.instructorInfo.photo}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/eduIsland/editInstructorInfo">Edit</a>
+            </td>
+        </tr>
+    </c:if>
+    <%--  Admin Info:  --%>
+    <%--  TODO  --%>
     <tr>
         <%--<c:choose>--%>
             <%--<c:when test="${user.userId == 'test123'}" >--%>

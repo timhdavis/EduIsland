@@ -23,6 +23,9 @@ public class LoginController {
     @Autowired
     StudentDAO studentDAO;
 
+    @Autowired
+    InstructorDAO instructorDAO;
+
     public User currentUser = null; // TODO: this could be a security issue / be incorrect.
 
     @RequestMapping(value ="/login", method = RequestMethod.GET)
@@ -41,9 +44,10 @@ public class LoginController {
 
         setUserContactInfo(validUser);
         setUserStudentInfo(validUser);
+        setUserInstructorInfo(validUser);
 
         if(validUser != null) {
-            mav = new ModelAndView("welcome", "user", validUser);//mav = new ModelAndView("welcome", "userId", validUser.getUserId());
+            mav = new ModelAndView("welcome", "user", validUser);
 
             currentUser = validUser;
         } else {
@@ -97,6 +101,40 @@ public class LoginController {
         return mav;
     }
 
+    //-- edit Instructor info:
+
+    @RequestMapping(value ="/editInstructorInfo", method = RequestMethod.GET)
+    public ModelAndView editInstructorInfo(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("editInstructorInfo"); // name of the JSP file referencing.
+        mav.addObject("editInstructorInfoForm", new InstructorInfo()); // attributeName from JSP form's modelAttribute field.
+        mav.addObject("user", currentUser);
+
+        return mav;
+    }
+
+    @RequestMapping(value="/updateInstructorInfoProcess", method = RequestMethod.POST)
+    public ModelAndView updateContactInfo(HttpServletRequest request, HttpServletResponse response,
+                                          @ModelAttribute("editInstructorInfoForm") InstructorInfo instructorInfoEntered) {
+        ModelAndView mav = null;
+
+        if (currentUser != null) {
+            currentUser.getInstructorInfo().update(instructorInfoEntered);
+            instructorDAO.updateInstructorInfo(currentUser.getInstructorInfo());
+
+            currentUser.setInstructorInfo(instructorDAO.getInstructorInfo(currentUser.getUserId()));
+
+            mav = new ModelAndView("welcome", "user", currentUser);
+        }
+        else {
+            mav = new ModelAndView("login");
+            mav.addObject("Error", "No current user.");
+        }
+
+        return mav;
+    }
+
+    // ---
+
     // Private methods:
 
     private void setUserContactInfo(User validUser)
@@ -110,5 +148,12 @@ public class LoginController {
     {
         StudentInfo validStudentInfo = studentDAO.getStudentInfo(validUser.getUserId());
         validUser.setStudentInfo(validStudentInfo);
+    }
+
+    // adds instructor info if any exists in database for this user (null if not a student):
+    private void setUserInstructorInfo(User validUser)
+    {
+        InstructorInfo validInstructorInfo = instructorDAO.getInstructorInfo(validUser.getUserId());
+        validUser.setInstructorInfo(validInstructorInfo);
     }
 }

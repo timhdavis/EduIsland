@@ -66,18 +66,18 @@ public class ContactInfo {
     public void update(ContactInfo newContactInfo)
     {
         // Note: "" is tested first to eliminate NullPointer errors where the new field is null:
-        if (!"".equals(newContactInfo.firstName)) { setFirstName(newContactInfo.getFirstName()); }
-        if (!"".equals(newContactInfo.middleName)) { setMiddleName(newContactInfo.getMiddleName()); }
-        if (!"".equals(newContactInfo.lastName)) { setLastName(newContactInfo.getLastName()); }
+        if (newContactInfo.firstName != null && !newContactInfo.firstName.equals("")) { setFirstName(newContactInfo.getFirstName()); }
+        if (newContactInfo.middleName != null && !newContactInfo.middleName.equals("")) { setMiddleName(newContactInfo.getMiddleName()); }
+        if (newContactInfo.lastName != null && !newContactInfo.lastName.equals("")) { setLastName(newContactInfo.getLastName()); }
 
-        if (!"".equals(newContactInfo.phoneNumber)) { setPhoneNumber(newContactInfo.getPhoneNumber()); }
-        if (!"".equals(newContactInfo.emailAddress)) { setEmailAddress(newContactInfo.getEmailAddress()); }
-        if (!"".equals(newContactInfo.emailAddress2)) { setEmailAddress2(newContactInfo.getEmailAddress2()); }
+        if (newContactInfo.phoneNumber != null && !newContactInfo.phoneNumber.equals("")) { setPhoneNumber(newContactInfo.getPhoneNumber()); }
+        if (newContactInfo.emailAddress != null && !newContactInfo.emailAddress.equals("")) { setEmailAddress(newContactInfo.getEmailAddress()); }
+        if (newContactInfo.emailAddress2 != null && !newContactInfo.emailAddress2.equals("")) { setEmailAddress2(newContactInfo.getEmailAddress2()); }
 
-        if (!"".equals(newContactInfo.street)) { setStreet(newContactInfo.getStreet()); }
-        if (!"".equals(newContactInfo.city)) { setCity(newContactInfo.getCity()); }
-        if (!"".equals(newContactInfo.state)) { setState(newContactInfo.getState()); }
-        if (!"".equals(newContactInfo.zipCode)) { setZipCode(newContactInfo.getZipCode()); }
+        if (newContactInfo.street != null && !newContactInfo.street.equals("")) { setStreet(newContactInfo.getStreet()); }
+        if (newContactInfo.city != null && !newContactInfo.city.equals("")) { setCity(newContactInfo.getCity()); }
+        if (newContactInfo.state != null && !newContactInfo.state.equals("")) { setState(newContactInfo.getState()); }
+        if (newContactInfo.zipCode != null && !newContactInfo.zipCode.equals("")) { setZipCode(newContactInfo.getZipCode()); }
     }
 
     // General methods:

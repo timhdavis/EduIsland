@@ -1,11 +1,5 @@
 package webapp157A;
 
-import com.mysql.jdbc.TimeUtil;
-
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-
 public class StudentInfo {
 
     private String userId;

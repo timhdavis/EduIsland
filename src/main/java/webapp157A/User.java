@@ -16,6 +16,7 @@ public class User {
     private List<ContactInfo> emergencyContacts;
 
     private StudentInfo studentInfo;
+    private InstructorInfo instructorInfo;
 
 
     // Getters:
@@ -36,6 +37,8 @@ public class User {
 
     public StudentInfo getStudentInfo() { return studentInfo; }
 
+    public InstructorInfo getInstructorInfo() { return instructorInfo; }
+
     // Setters:
 
     public void setUserId(String userId) {
@@ -54,10 +57,17 @@ public class User {
 
     public void setStudentInfo(StudentInfo studentInfo) { this.studentInfo = studentInfo; }
 
+    public void setInstructorInfo(InstructorInfo instructorInfo) { this.instructorInfo = instructorInfo; }
+
     // Other:
 
     public boolean isStudent()
     {
         return (studentInfo != null);
+    }
+
+    public boolean isInstructor()
+    {
+        return (instructorInfo != null);
     }
 }
