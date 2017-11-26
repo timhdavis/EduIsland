@@ -26,6 +26,12 @@ public class LoginController {
     @Autowired
     InstructorDAO instructorDAO;
 
+    @Autowired
+    AdminDAO adminDAO;
+
+    @Autowired
+    DepartmentDAO departmentDAO;
+
     public User currentUser = null; // TODO: this could be a security issue / be incorrect.
 
     @RequestMapping(value ="/login", method = RequestMethod.GET)
@@ -45,6 +51,7 @@ public class LoginController {
         setUserContactInfo(validUser);
         setUserStudentInfo(validUser);
         setUserInstructorInfo(validUser);
+        setUserAdminInfo(validUser);
 
         if(validUser != null) {
             mav = new ModelAndView("welcome", "user", validUser);
@@ -154,6 +161,21 @@ public class LoginController {
     private void setUserInstructorInfo(User validUser)
     {
         InstructorInfo validInstructorInfo = instructorDAO.getInstructorInfo(validUser.getUserId());
+
+        Department departmentTeachesFor = departmentDAO.getDepartmentTeachesFor(validUser.getUserId());
+        validInstructorInfo.setDepartmentTeachesFor(departmentTeachesFor);
+
         validUser.setInstructorInfo(validInstructorInfo);
+    }
+
+    // adds admin info if any exists in database for this user (null if not a student):
+    private void setUserAdminInfo(User validUser)
+    {
+        AdminInfo validAdminInfo = adminDAO.getAdminInfo(validUser.getUserId());
+
+        Department departmentAdministersFor = departmentDAO.getDepartmentAdministersFor(validUser.getUserId());
+        validAdminInfo.setDepartmentAdministers(departmentAdministersFor);
+
+        validUser.setAdminInfo(validAdminInfo);
     }
 }

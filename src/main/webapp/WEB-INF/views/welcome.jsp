@@ -37,7 +37,7 @@
         </tr>
         <tr>
             <td>
-                Bio: ${user.instructorInfo.biography}
+                Biography: ${user.instructorInfo.biography}
             </td>
         </tr>
         <tr>
@@ -47,11 +47,33 @@
         </tr>
         <tr>
             <td>
+                Department teaches for: ${user.instructorInfo.departmentTeachesFor.name}
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <a href="/eduIsland/editInstructorInfo">Edit</a>
             </td>
         </tr>
     </c:if>
     <%--  Admin Info:  --%>
+    <c:if test="${user.admin}">
+        <tr>
+            <td>
+                <p>Administrator Info:</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Title: ${user.adminInfo.title}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Department administers for: ${user.adminInfo.departmentAdministers.name}
+            </td>
+        </tr>
+    </c:if>
     <%--  TODO  --%>
     <tr>
         <%--<c:choose>--%>

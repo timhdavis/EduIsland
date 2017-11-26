@@ -17,6 +17,7 @@ public class User {
 
     private StudentInfo studentInfo;
     private InstructorInfo instructorInfo;
+    private AdminInfo adminInfo;
 
 
     // Getters:
@@ -39,6 +40,8 @@ public class User {
 
     public InstructorInfo getInstructorInfo() { return instructorInfo; }
 
+    public AdminInfo getAdminInfo() { return adminInfo; }
+
     // Setters:
 
     public void setUserId(String userId) {
@@ -59,6 +62,8 @@ public class User {
 
     public void setInstructorInfo(InstructorInfo instructorInfo) { this.instructorInfo = instructorInfo; }
 
+    public void setAdminInfo(AdminInfo adminInfo) { this.adminInfo = adminInfo; }
+
     // Other:
 
     public boolean isStudent()
@@ -66,8 +71,7 @@ public class User {
         return (studentInfo != null);
     }
 
-    public boolean isInstructor()
-    {
-        return (instructorInfo != null);
-    }
+    public boolean isInstructor() { return (instructorInfo != null); }
+
+    public boolean isAdmin() { return (adminInfo != null); }
 }

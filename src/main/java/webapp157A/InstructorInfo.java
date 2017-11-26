@@ -7,6 +7,7 @@ public class InstructorInfo {
     private String photo;
     private String position;
 
+    private Department departmentTeachesFor;
 
     // Getters and setters:
 
@@ -21,6 +22,10 @@ public class InstructorInfo {
 
     public String getPosition() { return position; }
     public void setPosition(String position) { this.position = position; }
+
+    public Department getDepartmentTeachesFor() { return departmentTeachesFor; }
+    public void setDepartmentTeachesFor(Department departmentTeachesFor) { this.departmentTeachesFor = departmentTeachesFor; }
+
 
     // Other methods:
 
@@ -38,7 +43,7 @@ public class InstructorInfo {
             setPhoto(newInstructorInfo.getPhoto());
         }
 
-        if (newInstructorInfo.position != null && !"".equals(newInstructorInfo.position)) {
+        if (newInstructorInfo.position != null && !newInstructorInfo.position.equals("")) {
             setPosition(newInstructorInfo.getPosition());
         }
     }
